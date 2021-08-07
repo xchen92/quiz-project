@@ -1,39 +1,33 @@
 package com.example.QuizProject.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name="question")
 public class Question {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "question_id")
     int question_id;
+
+    @Column(name = "question_text")
     String question_text;
+
+    @Column(name = "answer_id")
     int answer_id;
-    List<Option> options;
 
-    Question(int id, String text, int aid){
-        this.question_id = id;
-        this.question_text = text;
-        this.answer_id = aid;
-    }
 
-    public static class QuestionBuilder{
-        int question_id;
-        String question_text;
-        int answer_id;
+    @OneToMany(mappedBy ="question_id")
+    private List<Option> options;
 
-        public QuestionBuilder putID(int id){
-            this.question_id = id;
-            return this;
-        }
-        public QuestionBuilder putText(String text){
-            this.question_text = text;
-            return this;
-        }
-        public QuestionBuilder putAID(int id){
-            this.answer_id = id;
-            return this;
-        }
-        public Question build(){
-            return new Question(question_id,question_text,answer_id);
-        }
+    /*
+    @ManyToMany(mappedBy ="questions")
+    private List<Quiz> quizzes;*/
+
+    public Question() {
+
     }
 
     public int getQuestion_id() {
@@ -60,12 +54,12 @@ public class Question {
         this.answer_id = answer_id;
     }
 
-    public void setOptions(List<Option> opts){
-        this.options = opts;
+    public List<Option> getOptions() {
+        return options;
     }
 
-    public List<Option> getOptions(){
-        return this.options;
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 
 

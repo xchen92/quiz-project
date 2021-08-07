@@ -1,7 +1,8 @@
 package com.example.QuizProject.controller;
 
 
-import com.example.QuizProject.dao.QuizDAO;
+import com.example.QuizProject.dao.hibernate.HibernateQuizDao;
+import com.example.QuizProject.dao.old.QuizDAO;
 import com.example.QuizProject.entity.Quiz;
 
 import javax.servlet.RequestDispatcher;
@@ -16,10 +17,10 @@ import java.util.List;
 
 @WebServlet(name = "homeServlet", urlPatterns = {"", "/home"})
 public class HomeServlet extends HttpServlet {
-    private QuizDAO dao;
+    private HibernateQuizDao dao;
 
     public void init(){
-        this.dao = new QuizDAO();
+        this.dao = new HibernateQuizDao();
     }
 
     protected void doGet(HttpServletRequest req,
@@ -28,7 +29,7 @@ public class HomeServlet extends HttpServlet {
         res.setContentType("text/html");
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/pages/index.jsp");
         HttpSession session = req.getSession(true);
-        List<Quiz> quizzes = dao.getAllQuizzes();
+        List<Quiz> quizzes = dao.getQuiz();
         session.setAttribute("quizzes",quizzes);
         requestDispatcher.forward(req, res);
 

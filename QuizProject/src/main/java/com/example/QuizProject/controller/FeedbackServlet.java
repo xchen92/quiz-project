@@ -1,6 +1,6 @@
 package com.example.QuizProject.controller;
 
-import com.example.QuizProject.dao.FeedbackDAO;
+import com.example.QuizProject.dao.old.FeedbackDAO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -1,7 +1,6 @@
 package com.example.QuizProject.controller;
 
-import com.example.QuizProject.dao.UserDAO;
-
+import com.example.QuizProject.dao.hibernate.HibernateUserDao;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +11,10 @@ import java.io.IOException;
 
 @WebServlet(name = "loginServlet", value = "/login", loadOnStartup=1)
 public class LoginServlet extends HttpServlet {
-    private UserDAO userDAO;
+    private HibernateUserDao userDAO;
 
     public void init() {
-        this.userDAO = new UserDAO();
+        this.userDAO = new HibernateUserDao();
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

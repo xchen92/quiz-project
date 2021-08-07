@@ -1,6 +1,7 @@
 package com.example.QuizProject.entity;
 
-import com.example.QuizProject.dao.QuestionDAO;
+import com.example.QuizProject.dao.hibernate.HibernateQuizDao;
+
 
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +12,8 @@ public class QuizSession {
     private int quiz_id;
     private int user_id;
     private int score;
-    //private QuizDAO quizDAO = new QuizDAO();
-    private QuestionDAO questionDAO = new QuestionDAO();
+
+    private HibernateQuizDao quizDao = new HibernateQuizDao();
     private Date start_time;
     private Date end_time;
 
@@ -22,10 +23,13 @@ public class QuizSession {
     public QuizSession(int qid, int uid){
         this.quiz_id = qid;
         this.user_id = uid;
-        questions = questionDAO.getAllQuestions();
-        //questions = quizDAO.getQuestions(qid);
+        questions = quizDao.getQuestions(qid);
         //TODO: need to add more quizzes to the db in order for this to work
         start_time = new Date(System.currentTimeMillis());
+    }
+
+    public List<Option> getOptions(int question_id){
+        return quizDao.getOptions(question_id);
     }
 
 

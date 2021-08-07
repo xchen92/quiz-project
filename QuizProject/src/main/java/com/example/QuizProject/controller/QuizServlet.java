@@ -1,6 +1,6 @@
 package com.example.QuizProject.controller;
 
-import com.example.QuizProject.dao.QuestionDAO;
+import com.example.QuizProject.dao.hibernate.HibernateQuizDao;
 import com.example.QuizProject.entity.Question;
 import com.example.QuizProject.entity.QuizSession;
 
@@ -16,10 +16,10 @@ import java.util.List;
 
 @WebServlet(name = "quizServlet", urlPatterns = {"/quiz"})
 public class QuizServlet extends HttpServlet {
-    private QuestionDAO questionDAO;
+    private HibernateQuizDao quizDao;
 
     public void init(){
-        questionDAO = new QuestionDAO();
+        quizDao = new HibernateQuizDao();
     }
 
     protected void doGet(HttpServletRequest req,
@@ -41,7 +41,7 @@ public class QuizServlet extends HttpServlet {
             HttpSession session = req.getSession(true);
             QuizSession quizSession = new QuizSession(quiz, user);
             session.setAttribute("quizSession", quizSession);
-            List<Question> questions = questionDAO.getAllQuestions();
+            List<Question> questions = quizDao.getQuestions(quiz);
             session.setAttribute("questions",questions);
         }
         requestDispatcher.forward(req, res);

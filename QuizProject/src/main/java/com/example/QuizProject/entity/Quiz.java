@@ -1,50 +1,35 @@
 package com.example.QuizProject.entity;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table(name="quiz")
 public class Quiz {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "quiz_id")
     private int quiz_id;
+
+    @Column(name = "quiz_name")
     private String quiz_name;
-    private ArrayList<Question> questions;
-    private String img = "java.jpg";//default
 
-    public Quiz(int id, String name){
-        this.quiz_id = id;
-        this.quiz_name = name;
-        setImg(id);
+
+    @Column(name = "quiz_img")
+    private String quiz_img;
+
+
+    @OneToMany
+    @JoinTable(name = "quiz_question",
+            joinColumns = {@JoinColumn(name = "quiz_id")})
+    private List<Question> questions;
+
+
+    public Quiz(){
     }
-
-    public Quiz(String name){
-        this.quiz_name = name;
-    }
-
-    public void addQuestions(Question q){
-        questions.add(q);
-    }
-
-    public static class QuizBuilder{
-        private int quiz_id;
-        private String quiz_name;
-        //private ArrayList<Question> questions;
-
-        public QuizBuilder putID(int id){
-            this.quiz_id = id;
-            return this;
-        }
-
-        public QuizBuilder putName(String name){
-            this.quiz_name = name;
-            return this;
-        }
-
-        public Quiz build(){
-            return new Quiz(quiz_id,quiz_name);
-        }
-
-    }
-
-
 
     //setters and getters
     public int getQuiz_id() {
@@ -63,30 +48,11 @@ public class Quiz {
         this.quiz_name = quiz_name;
     }
 
-    public ArrayList<Question> getQuestions() {
-        return questions;
+    public String getQuiz_img() {
+        return quiz_img;
     }
 
-    public void setQuestions(ArrayList<Question> questions) {
-        this.questions = questions;
-    }
-
-    public void setImg(int id){
-        switch (id){
-            case 1:
-                this.img = "java.jpg";
-                break;
-            case 2:
-                this.img = "sql-logo.jpg";
-                break;
-            case 3:
-                this.img = "css.jpg";
-                break;
-            case 4:
-                this.img = "javascript.jpg";
-        }
-    }
-    public String getImg(){
-        return this.img;
+    public void setQuiz_img(String quiz_img) {
+        this.quiz_img = quiz_img;
     }
 }

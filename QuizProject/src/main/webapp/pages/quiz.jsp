@@ -34,7 +34,7 @@
                         <h3 class="text-danger">${sessionScope.quizSession.curr + 1}.</h3>
                         <h5 class="mt-1 ml-2">${sessionScope.quizSession.currentQuestion.question_text}</h5>
                     </div>
-                    <c:forEach items="${sessionScope.quizSession.currentQuestion.options}" var="option">
+                    <c:forEach items="${sessionScope.quizSession.getOptions(sessionScope.quizSession.currentQuestion.question_id)}" var="option">
                         <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                         <label class="options" for="${option.option_id}">
                             <input type="radio" name="radio" value="${option.option_id}" id="${option.option_id}">

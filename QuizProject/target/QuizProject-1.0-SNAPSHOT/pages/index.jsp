@@ -20,7 +20,7 @@
         <c:forEach items = "${sessionScope.quizzes}" var = "quiz">
         <div class="col-md-6">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="${pageContext.request.contextPath}/images/${quiz.img}" alt="Card image cap">
+                <img class="card-img-top" src="${pageContext.request.contextPath}/images/${quiz.quiz_img}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">${quiz.quiz_name}</h5>
                     <p class="card-text">Let's do this</p>
