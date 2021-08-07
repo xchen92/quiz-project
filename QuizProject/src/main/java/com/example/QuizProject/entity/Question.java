@@ -19,9 +19,6 @@ public class Question {
     int answer_id;
 
 
-    @OneToMany(mappedBy ="question_id")
-    private List<Option> options;
-
     /*
     @ManyToMany(mappedBy ="questions")
     private List<Quiz> quizzes;*/
@@ -52,14 +49,6 @@ public class Question {
 
     public void setAnswer_id(int answer_id) {
         this.answer_id = answer_id;
-    }
-
-    public List<Option> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<Option> options) {
-        this.options = options;
     }
 
 

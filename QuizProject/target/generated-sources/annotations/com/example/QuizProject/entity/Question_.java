@@ -1,7 +1,6 @@
 package com.example.QuizProject.entity;
 
 import javax.annotation.Generated;
-import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -10,12 +9,10 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Question_ {
 
 	public static volatile SingularAttribute<Question, String> question_text;
-	public static volatile ListAttribute<Question, Option> options;
 	public static volatile SingularAttribute<Question, Integer> question_id;
 	public static volatile SingularAttribute<Question, Integer> answer_id;
 
 	public static final String QUESTION_TEXT = "question_text";
-	public static final String OPTIONS = "options";
 	public static final String QUESTION_ID = "question_id";
 	public static final String ANSWER_ID = "answer_id";
 
