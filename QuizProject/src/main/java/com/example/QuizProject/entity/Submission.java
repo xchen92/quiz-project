@@ -2,6 +2,7 @@ package com.example.QuizProject.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name="submission")
@@ -23,6 +24,21 @@ public class Submission {
 
     @Column(name="score")
     private Integer score;
+
+    @Column(name="quiz_name")
+    private String quiz_name;
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "submission")
+    private List<QuestionAnswer> qas;
+
+    public List<QuestionAnswer> getQas() {
+        return qas;
+    }
+
+    public void setQas(List<QuestionAnswer> qas) {
+        this.qas = qas;
+    }
 
     public Integer getSubmission_id() {
         return submission_id;
@@ -64,5 +80,11 @@ public class Submission {
         this.score = score;
     }
 
+    public String getQuiz_name() {
+        return quiz_name;
+    }
 
+    public void setQuiz_name(String quiz_name) {
+        this.quiz_name = quiz_name;
+    }
 }

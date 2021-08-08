@@ -12,10 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class QuizSession {
-    private  int curr =0; //default
+    private  int curr = 0; //default
     private int quiz_id;
+    private String quizName;
     private String username;
-    private int score =0; //default
+    private int score = 0; //default
     Submission submission;
 
     private HibernateQuizDao quizDao = new HibernateQuizDao();
@@ -85,17 +86,19 @@ public class QuizSession {
         submission = new Submission();
         submission.setUser_name(username);
         submission.setSubmission_id(1);
+        quizName = quizDao.getQuizName(quiz_id);
+        submission.setQuiz_name(quizName);
         //end_time = new Timestamp(System.currentTimeMillis());
         //submission.setEnd_time((java.sql.Date) end_time);
         //submission.setStart_time((java.sql.Date) start_time);
-        ArrayList<QuestionAnswer> questionAnswers = new ArrayList<>();
+        List<QuestionAnswer> questionAnswers = new ArrayList<>();
 
         for(Question q: questions){
             if(q.getAnswer_id() == userSelectionMap.get(q)){
                 score++;
             }
             QuestionAnswer qa = new QuestionAnswer();
-            qa.setQuestion_answer_id(1);
+            //qa.setQuestion_answer_id(1);
             Integer optionId = userSelectionMap.get(q);
             if(optionId != null){
                 qa.setAnswer_id(optionId);
@@ -106,6 +109,7 @@ public class QuizSession {
             System.out.println("submissionID: "+submission.getSubmission_id());
             questionAnswers.add(qa);
         }
+        submission.setQas(questionAnswers);
         submission.setScore(getScore());
         qd.addSubmission(this, questionAnswers);
 

@@ -8,12 +8,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(QuestionAnswer.class)
 public abstract class QuestionAnswer_ {
 
-	public static volatile SingularAttribute<QuestionAnswer, Integer> submission_id;
+	public static volatile SingularAttribute<QuestionAnswer, Submission> submission;
 	public static volatile SingularAttribute<QuestionAnswer, Integer> question_answer_id;
 	public static volatile SingularAttribute<QuestionAnswer, Integer> question_id;
 	public static volatile SingularAttribute<QuestionAnswer, Integer> answer_id;
 
-	public static final String SUBMISSION_ID = "submission_id";
+	public static final String SUBMISSION = "submission";
 	public static final String QUESTION_ANSWER_ID = "question_answer_id";
 	public static final String QUESTION_ID = "question_id";
 	public static final String ANSWER_ID = "answer_id";

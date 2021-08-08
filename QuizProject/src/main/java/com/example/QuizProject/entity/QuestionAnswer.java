@@ -11,8 +11,9 @@ public class QuestionAnswer {
     @Column(name = "question_answer_id")
     private int question_answer_id;
 
-    @Column(name = "submission_id")
-    private int submission_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "submission_id")
+    private Submission submission;
 
     @Column(name = "question_id")
     private int question_id;
@@ -23,6 +24,16 @@ public class QuestionAnswer {
     public QuestionAnswer(){}
 
 
+    public Submission getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
+    }
+
+
+
     public int getQuestion_answer_id() {
         return question_answer_id;
     }
@@ -31,13 +42,14 @@ public class QuestionAnswer {
         this.question_answer_id = question_answer_id;
     }
 
-    public int getSubmission_id() {
+    /*public int getSubmission_id() {
         return submission_id;
     }
 
     public void setSubmission_id(int submission_id) {
         this.submission_id = submission_id;
-    }
+    }*/
+
 
     public int getQuestion_id() {
         return question_id;

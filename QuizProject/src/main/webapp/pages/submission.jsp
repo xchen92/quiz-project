@@ -22,7 +22,7 @@
     <c:forEach items="${sessionScope.completions}" var = "completion">
         <a href="${pageContext.request.contextPath}/submission?submissionId=${completion.submissionId}"
            class="list-group-item list-group-action">
-            quiz: ${completion.quiz_name} score: ${comletion.score}
+            quiz: ${completion.quiz_name} score: ${completion.score}
         </a>
     </c:forEach>
 </div>

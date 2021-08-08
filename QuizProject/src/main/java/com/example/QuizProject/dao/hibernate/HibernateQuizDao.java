@@ -72,13 +72,36 @@ public class HibernateQuizDao implements QuizDao {
     }
 
     @Override
+    public String getQuizName(int quiz_id) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = HibernateConfigUtil.getCurrentSession();
+            transaction = session.beginTransaction();
+
+            Query query = session.createQuery("SELECT q.quiz_name FROM Quiz q WHERE q.quiz_id = :quiz_id");
+            query.setParameter("quiz_id", quiz_id);
+            List<String> rl = query.getResultList();
+            String quiz_name = rl.get(0);
+            System.out.println("quiz_name: "+quiz_name);
+            transaction.commit();
+            return quiz_name;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public boolean addSubmission(QuizSession quizSession, List<QuestionAnswer> qas) {
         Session session = null;
         Transaction transaction = null;
         try {
             session = HibernateConfigUtil.getCurrentSession();
             transaction = session.beginTransaction();
-            session.merge(quizSession.getSubmission());
+            Submission s = quizSession.getSubmission();
+            session.merge(s);
             transaction.commit();
 
             for(QuestionAnswer qa: qas){
@@ -100,6 +123,7 @@ public class HibernateQuizDao implements QuizDao {
             session = HibernateConfigUtil.getCurrentSession();
             transaction = session.beginTransaction();
             System.out.println("qaID: "+qa.getAnswer_id());
+            //qa.setSubmission_id(sid);
             session.merge(qa);
             transaction.commit();
             return true;

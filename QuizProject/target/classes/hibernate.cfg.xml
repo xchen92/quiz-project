@@ -18,6 +18,6 @@
         <mapping class="com.example.QuizProject.entity.Question"/>
         <mapping class="com.example.QuizProject.entity.Option"/>
         <mapping class="com.example.QuizProject.entity.QuizQuestion"/>
-
+        <mapping class="com.example.QuizProject.entity.QuestionAnswer"/>
     </session-factory>
 </hibernate-configuration>
