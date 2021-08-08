@@ -3,7 +3,7 @@ package com.example.QuizProject.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="option")
+@Table(name="`option`")
 public class Option {
 
     @Id
