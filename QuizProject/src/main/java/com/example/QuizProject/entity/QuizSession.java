@@ -1,8 +1,10 @@
 package com.example.QuizProject.entity;
 
+import com.example.QuizProject.dao.QuizDao;
 import com.example.QuizProject.dao.hibernate.HibernateQuizDao;
 
 
+import java.awt.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +15,8 @@ public class QuizSession {
     private  int curr =0; //default
     private int quiz_id;
     private String username;
-    private int score;
+    private int score =0; //default
+    Submission submission;
 
     private HibernateQuizDao quizDao = new HibernateQuizDao();
     private Date start_time;
@@ -73,17 +76,18 @@ public class QuizSession {
 
     public boolean quizComplete(){
         for(Question q: questions){
-            if(userSelectionMap.get(questions) ==  null){
+            if(userSelectionMap.get(q) ==  null){
                 return false;
             }
         }return true;
     }
-    public void submit(){
-        Submission submission = new Submission();
+    public void submit(QuizDao qd){
+        submission = new Submission();
         submission.setUser_name(username);
-        end_time = new Timestamp(System.currentTimeMillis());
-        submission.setEnd_time((java.sql.Date) end_time);
-        submission.setStart_time((java.sql.Date) start_time);
+        submission.setSubmission_id(1);
+        //end_time = new Timestamp(System.currentTimeMillis());
+        //submission.setEnd_time((java.sql.Date) end_time);
+        //submission.setStart_time((java.sql.Date) start_time);
         ArrayList<QuestionAnswer> questionAnswers = new ArrayList<>();
 
         for(Question q: questions){
@@ -91,15 +95,24 @@ public class QuizSession {
                 score++;
             }
             QuestionAnswer qa = new QuestionAnswer();
+            qa.setQuestion_answer_id(1);
             Integer optionId = userSelectionMap.get(q);
             if(optionId != null){
                 qa.setAnswer_id(optionId);
             }
             qa.setQuestion_id(q.getQuestion_id());
-            qa.setSubmission_id(submission.getSubmission_id());
+            //qa.setSubmission_id(submission.getSubmission_id());
+            System.out.println(qa.getAnswer_id());
+            System.out.println("submissionID: "+submission.getSubmission_id());
+            questionAnswers.add(qa);
         }
-        //quizDao.submitQuiz(this, questionAnswers)
+        submission.setScore(getScore());
+        qd.addSubmission(this, questionAnswers);
 
+    }
+
+    public Submission getSubmission(){
+        return submission;
     }
 
 }

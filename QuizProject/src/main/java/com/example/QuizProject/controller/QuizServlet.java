@@ -75,10 +75,12 @@ public class QuizServlet extends HttpServlet {
                 quizSession.next();
             }else if(req.getParameter("button").equals("submit")){
                 if(quizSession.quizComplete()){
-                    //quizSession.submit()
-                    //requestDispatcher = req.getRequestDispatcher("/pages/index.jsp")
+                    quizSession.submit(quizDao);
+                    requestDispatcher = req.getRequestDispatcher("/pages/index.jsp");
+                    System.out.println("DONE");
                 }else{
                     session.setAttribute("msg","Not done yet.");
+                    System.out.println("NOT DONE");
                 }
             }
         }

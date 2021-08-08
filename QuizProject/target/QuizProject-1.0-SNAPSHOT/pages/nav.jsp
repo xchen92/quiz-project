@@ -28,6 +28,10 @@
       <li class="nav-item">
         <a class="nav-link" href="register">Register</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="user">Profile</a>
+      </li>
     </ul>
   </div>
 </nav>

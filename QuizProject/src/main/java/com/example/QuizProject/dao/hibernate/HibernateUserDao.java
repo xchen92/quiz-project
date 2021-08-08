@@ -2,6 +2,8 @@ package com.example.QuizProject.dao.hibernate;
 
 import com.example.QuizProject.config.HibernateConfigUtil;
 import com.example.QuizProject.dao.UserDao;
+import com.example.QuizProject.entity.QuestionAnswer;
+import com.example.QuizProject.entity.Submission;
 import com.example.QuizProject.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -63,5 +65,45 @@ public class HibernateUserDao implements UserDao {
     public boolean checkAuth(String user_name, String password) {
         if (findAll().containsKey(user_name) && findAll().get(user_name).equals(password)) return true;
         return false;
+    }
+
+    @Override
+    public List<Submission> getSubmission(String username) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = HibernateConfigUtil.getCurrentSession();
+            transaction = session.beginTransaction();
+
+            Query query = session.createQuery("FROM Submission s WHERE s.user_name = :username");
+            query.setParameter("username", username);
+            List<Submission> submissions = query.getResultList();
+            transaction.commit();
+            return submissions;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<QuestionAnswer> getQuestionAnswer(int submissionId) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = HibernateConfigUtil.getCurrentSession();
+            transaction = session.beginTransaction();
+
+            Query query = session.createQuery("FROM QuestionAnswer qa WHERE qa.submission_id = :submissionId");
+            query.setParameter("submissionId", submissionId);
+            List<QuestionAnswer> questionAnswers = query.getResultList();
+            transaction.commit();
+            return questionAnswers;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+        return null;
     }
 }
