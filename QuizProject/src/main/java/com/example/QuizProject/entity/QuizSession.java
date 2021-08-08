@@ -85,7 +85,6 @@ public class QuizSession {
     public void submit(QuizDao qd){
         submission = new Submission();
         submission.setUser_name(username);
-        submission.setSubmission_id(1);
         quizName = quizDao.getQuizName(quiz_id);
         submission.setQuiz_name(quizName);
         //end_time = new Timestamp(System.currentTimeMillis());
@@ -98,19 +97,18 @@ public class QuizSession {
                 score++;
             }
             QuestionAnswer qa = new QuestionAnswer();
-            //qa.setQuestion_answer_id(1);
             Integer optionId = userSelectionMap.get(q);
             if(optionId != null){
                 qa.setAnswer_id(optionId);
             }
             qa.setQuestion_id(q.getQuestion_id());
-            //qa.setSubmission_id(submission.getSubmission_id());
             System.out.println(qa.getAnswer_id());
             System.out.println("submissionID: "+submission.getSubmission_id());
             questionAnswers.add(qa);
         }
         submission.setQas(questionAnswers);
         submission.setScore(getScore());
+
         qd.addSubmission(this, questionAnswers);
 
     }

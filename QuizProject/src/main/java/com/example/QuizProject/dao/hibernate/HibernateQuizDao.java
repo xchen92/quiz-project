@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class HibernateQuizDao implements QuizDao {
@@ -101,31 +102,18 @@ public class HibernateQuizDao implements QuizDao {
             session = HibernateConfigUtil.getCurrentSession();
             transaction = session.beginTransaction();
             Submission s = quizSession.getSubmission();
-            session.merge(s);
+            session.saveOrUpdate(s);
             transaction.commit();
 
-            for(QuestionAnswer qa: qas){
-                addQuestionAnswer(qa);
-            }
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean addQuestionAnswer(QuestionAnswer qa) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
             session = HibernateConfigUtil.getCurrentSession();
             transaction = session.beginTransaction();
-            System.out.println("qaID: "+qa.getAnswer_id());
-            //qa.setSubmission_id(sid);
-            session.merge(qa);
+
+            for(QuestionAnswer qa: qas){
+                qa.setSubmission(s);
+                session.merge(qa);
+            }
             transaction.commit();
+
             return true;
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();

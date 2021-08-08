@@ -11,5 +11,4 @@ public interface QuizDao {
     List<Option> getOptions(int question_id);
     String getQuizName(int quiz_id);
     boolean addSubmission(QuizSession quizSession, List<QuestionAnswer> qas);
-    boolean addQuestionAnswer(QuestionAnswer questionAnswer);
 }
