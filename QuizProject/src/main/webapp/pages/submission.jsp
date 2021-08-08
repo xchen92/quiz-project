@@ -10,6 +10,8 @@
 <html>
 <head>
     <title>Your Submission History</title>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
@@ -20,7 +22,7 @@
 <div class="list-group mt-5">
 
     <c:forEach items="${sessionScope.completions}" var = "completion">
-        <a href="${pageContext.request.contextPath}/submission?submissionId=${completion.submissionId}"
+        <a href="${pageContext.request.contextPath}/submission?submissionId=${completion.submission_id}"
            class="list-group-item list-group-action">
             quiz: ${completion.quiz_name} score: ${completion.score}
         </a>

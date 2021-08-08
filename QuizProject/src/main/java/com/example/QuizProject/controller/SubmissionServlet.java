@@ -27,16 +27,11 @@ public class SubmissionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/submission.jsp");
-        String user = req.getParameter("user");
-
-        if (user != null) {
-            HttpSession session = req.getSession(true);
-            List<Submission> completions = userDao.getSubmission(user);
-            System.out.println("completion"+ completions.get(1).getQuiz_name());
-            session.setAttribute("completions", completions);
-            //List<QuestionAnswer> qas = userDao.getQuestionAnswer(1);
-        }
-
+        String user = req.getParameter("username");
+        System.out.println("user!!"+ user);
+        HttpSession session = req.getSession(true);
+        List<Submission> submissions = (List<Submission>) session.getAttribute("completions");
+        session.setAttribute("completions", submissions);
         dispatcher.forward(req,resp);
     }
 

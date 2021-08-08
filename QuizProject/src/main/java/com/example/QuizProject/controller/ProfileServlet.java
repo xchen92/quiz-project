@@ -1,5 +1,9 @@
 package com.example.QuizProject.controller;
 
+import com.example.QuizProject.dao.hibernate.HibernateUserDao;
+import com.example.QuizProject.entity.Submission;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,28 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "profileServlet", value = "/profile", loadOnStartup=1)
 public class ProfileServlet extends HttpServlet {
+    HibernateUserDao userDao;
+    public void init(){
+        userDao = new HibernateUserDao();
+    }
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/pages/user.jsp");
+        HttpSession session = req.getSession(true);
+        String username = (String) session.getAttribute("username");
+        List<Submission> submissions = userDao.getSubmission(username);
+        session.setAttribute("completions", submissions);
 
-        PrintWriter writer = resp.getWriter();
+        requestDispatcher.forward(req, resp);
 
-        HttpSession oldSession = req.getSession(false);
-        if (oldSession == null) {
-            req.getRequestDispatcher("/pages/login.jsp").include(req, resp);
-            writer.print(
-                    "<div class='container'>" +
-                            "<h2 style='color: red;'>Unauthorized access, please login.</h2>" +
-                            "</div>"
-            );
-        } else {
-            String userName = (String)oldSession.getAttribute("username");
-            String password = (String)oldSession.getAttribute("password");
-            req.getRequestDispatcher("/pages/user.jsp").include(req, resp);
-        }
-
-        writer.close();
     }
 }
