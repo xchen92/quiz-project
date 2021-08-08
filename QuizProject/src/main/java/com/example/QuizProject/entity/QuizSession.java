@@ -3,6 +3,8 @@ package com.example.QuizProject.entity;
 import com.example.QuizProject.dao.hibernate.HibernateQuizDao;
 
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 public class QuizSession {
     private  int curr =0; //default
     private int quiz_id;
-    private int user_id;
+    private String username;
     private int score;
 
     private HibernateQuizDao quizDao = new HibernateQuizDao();
@@ -20,9 +22,9 @@ public class QuizSession {
     private List<Question> questions;
     private HashMap<Question, Integer> userSelectionMap = new HashMap<>();
 
-    public QuizSession(int qid, int uid){
+    public QuizSession(int qid, String username){
         this.quiz_id = qid;
-        this.user_id = uid;
+        this.username = username;
         questions = quizDao.getQuestions(qid);
         //TODO: need to add more quizzes to the db in order for this to work
         start_time = new Date(System.currentTimeMillis());
@@ -66,7 +68,7 @@ public class QuizSession {
         if(i == null){
             return 0;
         }
-        return 1;
+        return i;
     }
 
     public boolean quizComplete(){
@@ -77,6 +79,26 @@ public class QuizSession {
         }return true;
     }
     public void submit(){
+        Submission submission = new Submission();
+        submission.setUser_name(username);
+        end_time = new Timestamp(System.currentTimeMillis());
+        submission.setEnd_time((java.sql.Date) end_time);
+        submission.setStart_time((java.sql.Date) start_time);
+        ArrayList<QuestionAnswer> questionAnswers = new ArrayList<>();
+
+        for(Question q: questions){
+            if(q.getAnswer_id() == userSelectionMap.get(q)){
+                score++;
+            }
+            QuestionAnswer qa = new QuestionAnswer();
+            Integer optionId = userSelectionMap.get(q);
+            if(optionId != null){
+                qa.setAnswer_id(optionId);
+            }
+            qa.setQuestion_id(q.getQuestion_id());
+            qa.setSubmission_id(submission.getSubmission_id());
+        }
+        //quizDao.submitQuiz(this, questionAnswers)
 
     }
 

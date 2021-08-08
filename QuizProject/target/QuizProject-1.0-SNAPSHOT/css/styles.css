@@ -66,6 +66,9 @@ body {
 	background: #21bf73;
 	transition: 300ms ease-in-out 0s
 }
+.checkmark-checked{
+	background: #21bf73;
+}
 
 .options input[type="radio"]:checked~.checkmark:after {
 	transform: translate(-50%, -50%) scale(1)

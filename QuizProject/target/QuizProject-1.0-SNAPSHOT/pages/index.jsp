@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <h5 class="card-title">${quiz.quiz_name}</h5>
                     <p class="card-text">Let's do this</p>
-                    <a href="quiz?quiz=${quiz.quiz_id}&user=1" class="btn btn-primary">Start</a>
+                    <a href="quiz?quiz=${quiz.quiz_id}&user=${sessionScope.username}" class="btn btn-primary">Start</a>
                 </div>
             </div>
         </div>

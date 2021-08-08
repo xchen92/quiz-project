@@ -37,9 +37,15 @@
                     <c:forEach items="${sessionScope.quizSession.getOptions(sessionScope.quizSession.currentQuestion.question_id)}" var="option">
                         <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                         <label class="options" for="${option.option_id}">
-                            <input type="radio" name="radio" value="${option.option_id}" id="${option.option_id}">
-                            ${option.option_text}
-                            <span class="checkmark"></span>
+                            <c:if test ="${option.option_id == sessionScope.quizSession.selected}">
+                                <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" checked>
+                                <span class="checkmark"></span>
+                            </c:if>
+                            <c:if test="${option.option_id != sessionScope.quizSession.selected}">
+                                <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}">
+                                <span class="checkmark"></span>
+                            </c:if>
+                                ${option.option_text}
                         </label>
                     </div>
                     </c:forEach>

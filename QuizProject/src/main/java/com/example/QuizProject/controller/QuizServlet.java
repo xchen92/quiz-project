@@ -30,13 +30,12 @@ public class QuizServlet extends HttpServlet {
         String quiz_id = req.getParameter("quiz");
         //debug
         //System.out.println("quiz id: " +quiz_id);
-        String user_id = req.getParameter("user");
+        String user = req.getParameter("user");
         //debug
          //System.out.println("user id: " +user_id);
 
         if (quiz_id != null) {
             int quiz = Integer.parseInt(quiz_id);
-            int user = Integer.parseInt(user_id);
 
             HttpSession session = req.getSession(true);
             QuizSession quizSession = new QuizSession(quiz, user);
@@ -52,11 +51,13 @@ public class QuizServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         if(session != null){
             String option_id = req.getParameter("option");
+            //System.out.println("optinID: "+option_id);
             if(option_id!= null){
                 try{
                     int id= Integer.parseInt(option_id);
                     QuizSession quizSession = (QuizSession) session.getAttribute("quizSession");
                     quizSession.setUserSelection(id);
+                    //System.out.println("selected id: "+ id);
                 }catch (NumberFormatException e){
                     e.printStackTrace();
                 }
@@ -67,6 +68,7 @@ public class QuizServlet extends HttpServlet {
         if(session !=null){
             QuizSession quizSession = (QuizSession) session.getAttribute("quizSession");
             session.setAttribute("selectedID",quizSession.getSelected());
+            System.out.println("selected:"+quizSession.getSelected());
             if(req.getParameter("button").equals("previous")){
                 quizSession.previous();
             }else if(req.getParameter("button").equals("next")){
