@@ -32,6 +32,7 @@ public class SubmissionServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = req.getSession(true);
             List<Submission> completions = userDao.getSubmission(user);
+            System.out.println("completion"+ completions.get(1).getQuiz_name());
             session.setAttribute("completions", completions);
             //List<QuestionAnswer> qas = userDao.getQuestionAnswer(1);
         }
@@ -41,6 +42,9 @@ public class SubmissionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/submission.jsp");
+        HttpSession session = request.getSession(false);
 
+        requestDispatcher.forward(request, response);
     }
 }

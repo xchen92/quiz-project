@@ -77,10 +77,10 @@ public class QuizServlet extends HttpServlet {
                 if(quizSession.quizComplete()){
                     quizSession.submit(quizDao);
                     requestDispatcher = req.getRequestDispatcher("/pages/index.jsp");
-                    System.out.println("DONE");
+                    //System.out.println("DONE");
                 }else{
                     session.setAttribute("msg","Not done yet.");
-                    System.out.println("NOT DONE");
+                    //System.out.println("NOT DONE");
                 }
             }
         }

@@ -6,6 +6,7 @@
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/quiz</url-pattern>
-        <url-pattern>/user</url-pattern>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/submission</url-pattern>
     </filter-mapping>
 </web-app>

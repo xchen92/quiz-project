@@ -6,9 +6,6 @@ import com.example.QuizProject.entity.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class HibernateQuizDao implements QuizDao {
@@ -84,7 +81,6 @@ public class HibernateQuizDao implements QuizDao {
             query.setParameter("quiz_id", quiz_id);
             List<String> rl = query.getResultList();
             String quiz_name = rl.get(0);
-            System.out.println("quiz_name: "+quiz_name);
             transaction.commit();
             return quiz_name;
         } catch (Exception e) {

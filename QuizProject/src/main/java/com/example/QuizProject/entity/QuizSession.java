@@ -95,6 +95,7 @@ public class QuizSession {
         for(Question q: questions){
             if(q.getAnswer_id() == userSelectionMap.get(q)){
                 score++;
+                System.out.println("+1:"+ q.getAnswer_id());
             }
             QuestionAnswer qa = new QuestionAnswer();
             Integer optionId = userSelectionMap.get(q);
@@ -102,8 +103,8 @@ public class QuizSession {
                 qa.setAnswer_id(optionId);
             }
             qa.setQuestion_id(q.getQuestion_id());
-            System.out.println(qa.getAnswer_id());
-            System.out.println("submissionID: "+submission.getSubmission_id());
+            //System.out.println(qa.getAnswer_id());
+            //System.out.println("submissionID: "+submission.getSubmission_id());
             questionAnswers.add(qa);
         }
         submission.setQas(questionAnswers);
