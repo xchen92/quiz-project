@@ -21,16 +21,23 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/register.jsp");
+        dispatcher.forward(req,resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /*String resp = "/register-success.jsp";
+        String resp = "/pages/register-success.jsp";
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         dao.addUser(username,password,false);
 
         request.setAttribute("user", username);
         RequestDispatcher dispatcher = request.getRequestDispatcher(resp);
-        dispatcher.forward(request, response);*/
+        dispatcher.forward(request, response);
 
     }
 }
