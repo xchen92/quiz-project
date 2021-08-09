@@ -22,7 +22,7 @@
             <div class="text-center py-4"> <img src="${pageContext.request.contextPath}/images/profile.jpg" class="rounded-circle" width="200">
                 <h3 class="mt-2 mb-0">${sessionScope.username}</h3> <small>@${sessionScope.username}</small>
                 <div class="stats d-flex justify-content-between px-3 mt-3">
-                    <div class="stats-1 d-flex flex-column"> <span>16</span> <span><a href="submission">Completion</a></span> </div>
+                    <div class="stats-1 d-flex flex-column"> <span>3</span> <span><a href="submission">Completion</a></span> </div>
                     <div class="stats-1 d-flex flex-column"> <span>80%</span> <span>Average Score</span> </div>
                 </div>
             </div>

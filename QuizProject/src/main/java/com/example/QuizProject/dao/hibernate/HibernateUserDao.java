@@ -2,6 +2,7 @@ package com.example.QuizProject.dao.hibernate;
 
 import com.example.QuizProject.config.HibernateConfigUtil;
 import com.example.QuizProject.dao.UserDao;
+import com.example.QuizProject.entity.Question;
 import com.example.QuizProject.entity.QuestionAnswer;
 import com.example.QuizProject.entity.Submission;
 import com.example.QuizProject.entity.User;
@@ -88,6 +89,27 @@ public class HibernateUserDao implements UserDao {
     }
 
     @Override
+    public List<Question> getQuestions(List<QuestionAnswer> qas) {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = HibernateConfigUtil.getCurrentSession();
+            transaction = session.beginTransaction();
+
+            Query query = session.createQuery("SELECT q FROM Question q JOIN QuestionAnswer qa " +
+                    "ON q.question_id = qa.question_id WHERE qa.submission = :submission");
+            query.setParameter("submission", qas.get(0).getSubmission());
+            List<Question> q = query.getResultList();
+            transaction.commit();
+            return q;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<QuestionAnswer> getQuestionAnswer(int submissionId) {
         Session session = null;
         Transaction transaction = null;
@@ -95,7 +117,7 @@ public class HibernateUserDao implements UserDao {
             session = HibernateConfigUtil.getCurrentSession();
             transaction = session.beginTransaction();
 
-            Query query = session.createQuery("FROM QuestionAnswer qa WHERE qa.submission_id = :submissionId");
+            Query query = session.createQuery("FROM QuestionAnswer qa WHERE qa.submission.submission_id = :submissionId");
             query.setParameter("submissionId", submissionId);
             List<QuestionAnswer> questionAnswers = query.getResultList();
             transaction.commit();

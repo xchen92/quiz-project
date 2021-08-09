@@ -19,7 +19,8 @@
 
 <%@include file="nav.jsp"%>
 <h1>Your Completion Results</h1>
-<div class="list-group mt-5">
+<div class="list-group pt-5">
+
 
     <c:forEach items="${sessionScope.completions}" var = "completion">
         <a href="${pageContext.request.contextPath}/submission?submissionId=${completion.submission_id}"
@@ -27,6 +28,41 @@
             quiz: ${completion.quiz_name} score: ${completion.score}
         </a>
     </c:forEach>
+
+    <c:forEach items="${sessionScope.complete_questions}" var="question">
+    <div class="d-flex flex-row align-items-center question-title">
+            <h5 class="mt-1 ml-2">${question.question_text}</h5>
+    </div>
+
+
+        <c:forEach items="${sessionScope.quizSession2.getOptions(question.question_id)}" var="option">
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3">
+
+                <label class="options form-check-label" for="${option.option_id}" id="options">
+                    <c:if test="${option.option_id == sessionScope.userSelectionMap.get(question)}">
+                        <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" checked>
+                        <span class="checkmark t-3"></span>
+                    </c:if>
+                    <c:if test="${option.option_id != sessionScope.userSelectionMap.get(question)}">
+                        <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" disabled>
+                        <span class="checkmark b-3"></span>
+                    </c:if>
+                        <c:if test="${sessionScope.userSelectionMap.get(question)==question.answer_id && option.option_id == sessionScope.userSelectionMap.get(question)}">
+                        <div class = "bg-success text-white">
+                        </c:if>
+                            <c:if test="${sessionScope.userSelectionMap.get(question) != question.answer_id ||option.option_id != sessionScope.userSelectionMap.get(question)}">
+                            <div>
+                            </c:if>
+                                <c:if test="${sessionScope.userSelectionMap.get(question) != question.answer_id && option.option_id == sessionScope.userSelectionMap.get(question)}">
+                                <div class="bg-danger text-white">
+                                    </c:if>
+                    ${option.option_text}</div>
+                </label>
+            </div>
+    </div>
+        </c:forEach>
+    </c:forEach>
+
 </div>
 
 </body>

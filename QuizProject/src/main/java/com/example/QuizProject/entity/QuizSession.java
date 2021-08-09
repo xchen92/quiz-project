@@ -34,6 +34,10 @@ public class QuizSession {
         start_time = new Date(System.currentTimeMillis());
     }
 
+    public QuizSession(){
+
+    }
+
     public List<Option> getOptions(int question_id){
         return quizDao.getOptions(question_id);
     }

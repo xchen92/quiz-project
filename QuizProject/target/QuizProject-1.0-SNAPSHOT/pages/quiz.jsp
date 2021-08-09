@@ -11,9 +11,9 @@
     <html>
     <head>
         <title>Quiz</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/styles.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     </head>
     <body>
@@ -39,11 +39,11 @@
                         <label class="options" for="${option.option_id}">
                             <c:if test ="${option.option_id == sessionScope.quizSession.selected}">
                                 <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" checked>
-                                <span class="checkmark"></span>
+                                <div class="top-15"><span class="checkmark"></span></div>
                             </c:if>
                             <c:if test="${option.option_id != sessionScope.quizSession.selected}">
                                 <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}">
-                                <span class="checkmark"></span>
+                                <div class=" top-15"><span class="checkmark"></span></div>
                             </c:if>
                                 ${option.option_text}
                         </label>

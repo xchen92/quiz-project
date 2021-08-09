@@ -1,5 +1,6 @@
 package com.example.QuizProject.dao;
 
+import com.example.QuizProject.entity.Question;
 import com.example.QuizProject.entity.QuestionAnswer;
 import com.example.QuizProject.entity.Submission;
 import com.example.QuizProject.entity.User;
@@ -13,6 +14,7 @@ public interface UserDao {
     boolean checkAuth(String user_name, String password);
 
     List<Submission> getSubmission(String username);
+    List<Question> getQuestions(List<QuestionAnswer> qas);
     List<QuestionAnswer> getQuestionAnswer(int submissionId);
 
 }
