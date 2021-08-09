@@ -10,10 +10,9 @@
 <html>
 <head>
     <title>Your Submission History</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
 </head>
 <body>
 
@@ -41,11 +40,11 @@
                 <label class="options form-check-label" for="${option.option_id}" id="options">
                     <c:if test="${option.option_id == sessionScope.userSelectionMap.get(question)}">
                         <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" checked>
-                        <span class="checkmark t-3"></span>
+                        <div class="top-15"><span class="checkmark"></span></div>
                     </c:if>
                     <c:if test="${option.option_id != sessionScope.userSelectionMap.get(question)}">
                         <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" disabled>
-                        <span class="checkmark b-3"></span>
+                        <div class="top-15"><span class="checkmark"></span></div>
                     </c:if>
                         <c:if test="${sessionScope.userSelectionMap.get(question)==question.answer_id && option.option_id == sessionScope.userSelectionMap.get(question)}">
                         <div class = "bg-success text-white">

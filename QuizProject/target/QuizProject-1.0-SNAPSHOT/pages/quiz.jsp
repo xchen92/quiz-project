@@ -39,11 +39,11 @@
                         <label class="options" for="${option.option_id}">
                             <c:if test ="${option.option_id == sessionScope.quizSession.selected}">
                                 <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}" checked>
-                                <div class="top-15"><span class="checkmark"></span></div>
+                                <span class="checkmark"></span>
                             </c:if>
                             <c:if test="${option.option_id != sessionScope.quizSession.selected}">
                                 <input type="radio" name="option" value="${option.option_id}" id="${option.option_id}">
-                                <div class=" top-15"><span class="checkmark"></span></div>
+                                <span class="checkmark"></span>
                             </c:if>
                                 ${option.option_text}
                         </label>
